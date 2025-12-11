@@ -11,7 +11,7 @@ O foco principal é:
 - ✔️ boas práticas de código  
 - ✔️ organização em classes  
 - ✔️ automação realista com Selenium  
-- ✔️ projeto simples e fácil de manter  
+- ✔️ projeto fácil de manter  
 
 ---
 
