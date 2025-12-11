@@ -5,7 +5,10 @@ from selenium.webdriver.chrome.options import Options
 
 import time
 import json
+import logging
 
+# Configuração dos logs
+logging.basicConfig(level=logging.INFO,format='[%(levelname)s] %(message)s')
 
 class PaginaScrapper:
     """
@@ -33,6 +36,7 @@ class PaginaScrapper:
 
         cls.var_webBot.get('https://curso-web-scraping.pages.dev/#/desafio/1')
         cls.var_webBot.maximize_window()
+        logging.info("Navegador aberto com sucesso!!")
         time.sleep(3) # dalay para aguardar a página carregar completamente
 
     @classmethod
@@ -48,9 +52,11 @@ class PaginaScrapper:
         with open(cls.var_ArquivoJson) as file:
             cls.var_strDadosJson = json.load(file)
 
+        logging.info(f"Registros encontrados: {len(cls.var_strDadosJson)}")
 
+        for index,item in enumerate(cls.var_strDadosJson, start=1):
 
-        for item in cls.var_strDadosJson:
+            logging.info(f"Preenchendo registro {index}: {item['email']}")
 
             # Divide a data de nascimento (YYYY-MM-DD)
             var_strAnoNascimento, var_strMesNascimento, var_strDiaNascimento = item['data-de-nascimento'].split('-')
@@ -88,5 +94,6 @@ class PaginaScrapper:
             btn_Enviar = cls.var_webBot.find_element(By.CSS_SELECTOR, 'form button[type="submit"]')
             btn_Enviar.click()
 
+            logging.info(f"Formulário {index} enviado com sucesso!!!")
             # Espera um pouco para evitar problemas no envio repetido
             time.sleep(0.5)
